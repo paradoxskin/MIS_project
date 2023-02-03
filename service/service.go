@@ -2,15 +2,16 @@ package service
 
 import (
 	"MIS_project/pojo"
-	"time"
 	"MIS_project/dao"
+	"time"
 )
 
 // 返回token
 func CheckLogin(loginInfo *pojo.LoginInfo) (*pojo.LoginReturn) {
 	var loginReturn pojo.LoginReturn
 	// 验证登录
-	if loginInfo.Password != dao.QueryPsw(&loginInfo.Username) {
+	password, err := dao.QueryPsw(&loginInfo.Username)
+	if err != nil || loginInfo.Password != password {
 		loginReturn.Status = "fail"
 		return &loginReturn
 	}
