@@ -8,6 +8,7 @@ import (
 func Build() *gin.Engine {
 	r := gin.Default()
 	r.LoadHTMLGlob("templ/*")
+	r.Static("/js", "static/js")
 	login := r.Group("/login")
 	{
 		login.GET("", controller.GetLoginPage)
