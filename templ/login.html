@@ -7,15 +7,47 @@
 	</head>
 	<body>
 		<h1>请登录您的账号</h1>
-		<form action="/login" method="post" accept-charset="utf-8">
-			<div>
-			<input type="text" value="" name="username" id=""/>
-			</div>
-			<div>
+		<form id="loginForm">
+			<input type="text" value="" name="username" id=""/><br>
 			<input type="password" value="" name="password" id=""/>
-			</div>
-			<input type="submit" value="Submit" />
 		</form>
+		<button id="btn">登录</button>
 	</body>
 </html>
 <script src="/js/jquery-3.6.3.min.js"></script>
+<script charset="utf-8">
+	$(function() {
+		let obj = {};
+		function getObj(str) {
+			let arr = str.split('&');
+			arr.map(function(item) {
+				let tempArr = item.split('=');
+				obj[tempArr[0]] = tempArr[1];
+			})
+			console.log(obj);
+			return obj;
+		}
+		$("#btn").click(function() {
+			let p = $("#loginForm").serialize();
+			let params = getObj(p);
+			$.post(
+				"/login",
+				params,
+				function(result) {
+					if(result.status == "fail") {
+						alert("用户名或者密码错误，请重试");
+					}
+					else {
+						// 开始登录
+						alert("登录成功，网页即将跳转");
+						// 记录token
+						localStorage.setItem("token", result.token);
+						// 跳转到平常界面
+						// TODO
+						location.assign("https://www.baidu.com");
+					}
+				}
+			)
+		});
+	});
+</script>

@@ -9,9 +9,9 @@ import (
 // 返回token
 func CheckLogin(loginInfo *pojo.LoginInfo) (*pojo.LoginReturn) {
 	var loginReturn pojo.LoginReturn
-	// 验证登录
+	// 验证登录，没查到为空字符串，不会返回错误信息
 	password, err := dao.QueryPsw(&loginInfo.Username)
-	if err != nil || loginInfo.Password != password {
+	if password == "" || err != nil || loginInfo.Password != password {
 		loginReturn.Status = "fail"
 		return &loginReturn
 	}
