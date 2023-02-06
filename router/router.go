@@ -9,6 +9,7 @@ func Build() *gin.Engine {
 	r := gin.Default()
 	r.LoadHTMLGlob("templ/*")
 	r.Static("/js", "static/js")
+	r.Static("/css", "static/css")
 	login := r.Group("/login")
 	{
 		login.GET("", controller.GetLoginPage)

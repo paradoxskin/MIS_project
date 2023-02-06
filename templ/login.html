@@ -5,16 +5,24 @@
 		<meta name="viewport" content="width=device-width">
 		<title>登录</title>
 	</head>
-	<body>
-		<h1>请登录您的账号</h1>
-		<form id="loginForm">
-			<input type="text" value="" name="username" id=""/><br>
-			<input type="password" value="" name="password" id=""/>
-		</form>
-		<button id="btn">登录</button>
+	<body class="text-center vsc-initialized bg-light">
+		<main class="form-signin w-25 m-auto">
+			<form id="loginForm" class="text-center" style="margin-top: 50%">
+			<center>
+				<h1 class="h3 mb-3 fw-normal">请登录您的账号</h1>
+				<input class="form-control " type="text" value="" name="username" id="" placeholder="用户名"/>
+				<input class="form-control " type="password" value="" name="password" id="" placeholder="密码"/>
+			</center>
+			</form>
+			<br>
+			<button class="w-100 btn btn-lg btn-primary" id="btn">登录</button>
+		</main>
 	</body>
 </html>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
 <script src="/js/jquery-3.6.3.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script charset="utf-8">
 	$(function() {
 		let obj = {};
