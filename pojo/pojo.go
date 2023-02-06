@@ -7,7 +7,10 @@ type LoginInfo struct {
 
 type LoginReturn struct {
 	Status string `json:"status"`
-	Username string `json:"username"`
 	Token string `json:"token"`
-	Start int64 `json:"start"`
+}
+
+type Token struct {
+	Token string
+	Id  uint
 }
