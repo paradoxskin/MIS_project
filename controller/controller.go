@@ -21,9 +21,24 @@ func LoginConfig(c *gin.Context) {
 	var login pojo.LoginInfo
 	err := c.ShouldBind(&login)
 	if err != nil {
-		// 报错
 		fmt.Println(err)
 		return
 	}
 	c.JSON(200, *service.CheckLogin(&login))
+}
+
+// [#] 返回登录后的主页界面，区分用户和非用户
+// [*] get, /index
+// [✓] ..
+func GetIndexPage(c *gin.Context) {
+	token := c.Query("token")
+	if !service.CheckToken(&token) {
+		c.Redirect(301, "/login")
+		return
+	}
+	if service.CheckRoot(&token) {
+		c.HTML(200, "index.html", gin.H{})
+		return
+	}
+	c.HTML(200, "normal.html", gin.H{})
 }

@@ -23,7 +23,7 @@ func InitConnect() {
 // [#] 根据用户名查找密码
 // [*] to service
 // [✓] ...
-func QueryPsw(username *string) (string, error){
+func QueryPsw(username *string) (string, error) {
 	var user pojo.User
 	err := DB.Table("users").Where("user_name = ?", username).Find(&user).Error
 	return user.Password, err
@@ -32,8 +32,17 @@ func QueryPsw(username *string) (string, error){
 // [#] 根据用户名查找ID
 // [*] to service
 // [✓] ...
-func QueryId(username *string) (uint, error){
+func QueryId(username *string) (uint, error) {
 	var user pojo.User
-	err := DB.Table("users").Where("user_name = ?", username).Find(&user).Error
+	err := DB.Table("users").Where("user_name = ?", *username).Find(&user).Error
 	return user.ID, err
+}
+
+// [#] 根据id查找用户的权限
+// [*] to service
+// [✓] ..
+func QueryPower(id *uint) (int, error) {
+	var user pojo.User
+	err := DB.Table("users").Where("id = ?", *id).Find(&user).Error
+	return user.Power, err
 }

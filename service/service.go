@@ -5,10 +5,10 @@ import (
 	"MIS_project/dao"
 	"time"
 	"math/rand"
+	"fmt"
 )
 
-var tokenMap map[string]pojo.Token
-// var loginSet map[string]interface{}
+var tokenMap map[string]pojo.Token = make(map[string]pojo.Token)
 
 // 返回token
 // [#] 验证用户并返回token
@@ -39,9 +39,28 @@ func CheckLogin(loginInfo *pojo.LoginInfo) (*pojo.LoginReturn) {
 func genRandomToken() *string {
 	var token string
 	rand.Seed(time.Now().Unix())
-	chars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^*"
+	chars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 	for i := 0; i < 18; i++ {
 		token += string(chars[rand.Intn(len(chars))])
 	}
+	fmt.Printf(token)
 	return &token
+}
+
+// [#] 验证token是否可用
+// [*] to controller
+// [✓] ...
+func CheckToken(token *string) bool {
+	_, flag := tokenMap[*token]
+	return flag
+}
+
+// [#] 验证指定Token对应的用户是否为管理员
+// [*] to controller
+// [✓] ...
+func CheckRoot(token *string) bool {
+	id, _ := dao.QueryId(token)
+	power, _ := dao.QueryPower(&id)
+	isRoot := power == 1
+	return isRoot
 }

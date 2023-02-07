@@ -9,9 +9,9 @@
 		<main class="form-signin w-25 m-auto">
 			<form id="loginForm" class="text-center" style="margin-top: 50%">
 			<center>
-				<h1 class="h3 mb-3 fw-normal">请登录您的账号</h1>
-				<input class="form-control " type="text" value="" name="username" id="" placeholder="用户名"/>
-				<input class="form-control " type="password" value="" name="password" id="" placeholder="密码"/>
+				<h1 class="h3 mb-3 fw-normal">宿舍管理系统</h1>
+				<input class="my-2 form-control " type="text" value="" name="username" id="" placeholder="用户名"/>
+				<input class="my-2 form-control " type="password" value="" name="password" id="" placeholder="密码"/>
 			</center>
 			</form>
 			<br>
@@ -25,6 +25,10 @@
 <script src="/js/bootstrap.min.js"></script>
 <script charset="utf-8">
 	$(function() {
+		if(localStorage.getItem("token") != "") {
+			var token = localStorage.getItem("token")
+			location.assign("/index?token=" + token);
+		}
 		let obj = {};
 		function getObj(str) {
 			let arr = str.split('&');
@@ -52,7 +56,7 @@
 						localStorage.setItem("token", result.token);
 						// 跳转到平常界面
 						// TODO
-						location.assign("https://www.baidu.com");
+						location.assign("/index?token=" + result.token);
 					}
 				}
 			)
