@@ -43,7 +43,6 @@ func genRandomToken() *string {
 	for i := 0; i < 18; i++ {
 		token += string(chars[rand.Intn(len(chars))])
 	}
-	fmt.Printf(token)
 	return &token
 }
 
@@ -63,4 +62,11 @@ func CheckRoot(token *string) bool {
 	power, _ := dao.QueryPower(&id)
 	isRoot := power == 1
 	return isRoot
+}
+
+// [#] 删除token
+// [*] to controller
+// [✓] ...
+func RemoveToken(token *string) {
+	delete(tokenMap, *token)
 }

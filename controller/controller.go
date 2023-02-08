@@ -40,5 +40,22 @@ func GetIndexPage(c *gin.Context) {
 		c.HTML(200, "index.html", gin.H{})
 		return
 	}
-	c.HTML(200, "normal.html", gin.H{})
+	c.HTML(200, "index.html", gin.H{})// index
+}
+
+// [#] 退出，传入token
+// [*] post, /quit
+// [✓] ...
+func QuitWithToken(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if isOk {
+		service.RemoveToken(&token)
+		c.JSON(200, map[string]interface{}{
+			"msg": "ok",
+		})
+		return
+	}
+	c.JSON(200, map[string]interface{}{
+		"msg": "fail",
+	})
 }

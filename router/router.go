@@ -23,6 +23,10 @@ func Build() *gin.Engine {
 		index.GET("", controller.GetIndexPage)
 		// 好像不用POST了 index.POST("", controller)
 	}
+	quit := r.Group("/quit")
+	{
+		quit.POST("", controller.QuitWithToken)
+	}
 	return r
 }
 

@@ -132,4 +132,5 @@
 | | POST | `/break/add` | |  |
 | | POST | `/break/query` | |  |
 | | POST | `/break/modify` | |  |
+| | POST | `/quit` | with token info |  |
 

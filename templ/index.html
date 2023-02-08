@@ -33,9 +33,16 @@
 <script charset="utf-8">
 	$(function() {
 		$("#quit").click(function() {
-			localStorage.removeItem("token")
-			// TODO 发送退出请求到服务器
-			location.assign("/login")
+			var token = localStorage.getItem("token");
+			localStorage.removeItem("token");
+			var tks={"token":token}
+			$.post(
+				"/quit",
+				tks,
+				function() {
+					location.assign("/login");
+				}
+			);
 		});
 	});
 </script>
