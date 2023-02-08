@@ -12,11 +12,8 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row flex-xl-nowrap" style="min-height: 650px;">
-			<div class="col-12 col-md-2 bd-sidebar bg-secondary text-white text-center" id="menu">
-				<ul class="nav flex-column">
-					<li class="nav-item">
-						<button class="my-2 btn btn-secondary btn-block w-100" type="button">菜单</button>
-					</li>
+			<div class="col-12 col-md-2 bd-sidebar bg-secondary text-white text-center">
+				<ul class="nav flex-column" id="menu">
 				</ul>
 			</div>
 			<div class="col-12 col-md-10 bd-content bg-light text-dark text-center" id="content">
@@ -44,5 +41,26 @@
 				}
 			);
 		});
+		var token = localStorage.getItem("token");
+		$.post(
+			"/index",
+			{"token": token},
+			function(data) {
+				var indexs = data
+				for(var i = 0; i < data.infos.length; i++) {
+					$("#menu").append("<li class=\"nav-item\"><button class=\"my-2 btn btn-secondary btn-block w-100\" type=\"button\" id=\"" + data.infos[i].button_id + "\">" + data.infos[i].button_name + "</button></li>");
+					(function(i) {
+					$("#" + data.infos[i].button_id).click(function() {
+						$.get(
+							indexs.infos[i].obj_url,
+							function() {
+								console.log("6")
+							}
+						)
+					});})(i)
+				}
+				// TODO
+			}
+		);
 	});
 </script>

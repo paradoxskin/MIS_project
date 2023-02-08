@@ -5,7 +5,6 @@ import (
 	"MIS_project/dao"
 	"time"
 	"math/rand"
-	"fmt"
 )
 
 var tokenMap map[string]pojo.Token = make(map[string]pojo.Token)

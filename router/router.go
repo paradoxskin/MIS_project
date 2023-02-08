@@ -21,7 +21,7 @@ func Build() *gin.Engine {
 	index := r.Group("/index")
 	{
 		index.GET("", controller.GetIndexPage)
-		// 好像不用POST了 index.POST("", controller)
+		index.POST("", controller.GiveIndexInfo)
 	}
 	quit := r.Group("/quit")
 	{
