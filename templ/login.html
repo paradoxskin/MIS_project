@@ -25,8 +25,15 @@
 <script src="/js/bootstrap.min.js"></script>
 <script charset="utf-8">
 	$(function() {
-		if(localStorage.getItem("token") != "") {
+		if(localStorage.getItem("token") != null) {
 			var token = localStorage.getItem("token")
+			if(localStorage.getItem("visit") == "1") {
+				localStorage.removeItem("visit")
+				localStorage.removeItem("token")
+			}
+			else {
+				localStorage.setItem("visit", "1")
+			}
 			location.assign("/index?token=" + token);
 		}
 		let obj = {};
@@ -55,7 +62,6 @@
 						// 记录token
 						localStorage.setItem("token", result.token);
 						// 跳转到平常界面
-						// TODO
 						location.assign("/index?token=" + result.token);
 					}
 				}
