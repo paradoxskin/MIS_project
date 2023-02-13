@@ -53,13 +53,12 @@
 					$("#" + data.infos[i].button_id).click(function() {
 						$.get(
 							indexs.infos[i].obj_url + "?token=" + token,
-							function() {
-								console.log("6")
+							function(data) {
+								$("#content").html(data)
 							}
 						)
 					});})(i)
 				}
-				// TODO
 			}
 		);
 	});

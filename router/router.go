@@ -23,6 +23,10 @@ func Build() *gin.Engine {
 		index.GET("", controller.GetIndexPage)
 		index.POST("", controller.GiveIndexInfo)
 	}
+	info := r.Group("/info")
+	{
+		info.GET("", controller.GetInfo)
+	}
 	quit := r.Group("/quit")
 	{
 		quit.POST("", controller.QuitWithToken)

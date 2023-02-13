@@ -108,3 +108,15 @@ func QuitWithToken(c *gin.Context) {
 		"msg": "fail",
 	})
 }
+
+// [#] 信息页面
+// [*] get, /info
+// [✓] .
+func GetInfo(c *gin.Context) {
+	token := c.Query("token")
+	if !service.CheckToken(&token) {
+		c.Redirect(301, "/login")
+		return
+	}
+	c.HTML(200, "info.html", gin.H{})
+}
