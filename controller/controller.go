@@ -138,7 +138,7 @@ func PostInfo(c *gin.Context) {
 		})
 		return
 	}
-	// 获取token对应用户的用户名，姓名，寝室号，权限
+	// 获取token对应用户的姓名，寝室号，权限
 	infos := service.PersonalInfo(token)
 	c.JSON(200, map[string]interface{}{
 		"msg": "ok",

@@ -69,15 +69,11 @@ func CheckRoot(token *string) bool {
 func RemoveToken(token *string) {
 	delete(tokenMap, *token)
 }
-// [#] 获取token对应用户的用户名，姓名，寝室，权限
+// [#] 获取token对应用户的姓名，寝室，权限
 // [*] to controller
 // [✓] .
 func PersonalInfo(token string) []string {
 	id := tokenMap[token].Id
-	username, err := dao.QueryUsername(id)
-	if err != nil {
-		return []string{}
-	}
 	name, err := dao.QueryName(id)
 	if err != nil {
 		return []string{}
@@ -88,7 +84,6 @@ func PersonalInfo(token string) []string {
 	}
 	roomName := dao.QueryRoomName(id)
 	return []string {
-		username,
 		name,
 		roomName,
 		isRoot,
