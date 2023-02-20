@@ -26,6 +26,7 @@ func Build() *gin.Engine {
 	info := r.Group("/info")
 	{
 		info.GET("", controller.GetInfo)
+		info.POST("", controller.PostInfo)
 	}
 	quit := r.Group("/quit")
 	{

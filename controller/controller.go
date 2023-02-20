@@ -120,3 +120,28 @@ func GetInfo(c *gin.Context) {
 	}
 	c.HTML(200, "info.html", gin.H{})
 }
+
+// [#] 信息页面
+// [*] post, /info
+// [✓] ...
+func PostInfo(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	// 获取token对应用户的用户名，姓名，寝室号，权限
+	infos := service.PersonalInfo(token)
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"infos": infos,
+	})
+}
