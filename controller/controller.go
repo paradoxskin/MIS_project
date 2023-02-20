@@ -59,35 +59,55 @@ func GiveIndexInfo(c *gin.Context) {
 	if service.CheckRoot(&token) {
 		c.JSON(200, map[string]interface{}{
 			"msg": "ok",
-			// TODO
+			"infos": []pojo.InfoBack{{
+					ButtonId: "info",
+					ObjUrl: "/info",
+					ButtonName: "个人信息",
+				}, {
+					ButtonId: "room",
+					ObjUrl: "/room",
+					ButtonName: "寝室管理",
+				}, {
+					ButtonId: "clean",
+					ObjUrl: "/clean",
+					ButtonName: "卫生检查登记",
+				}, {
+					ButtonId: "break",
+					ObjUrl: "/break",
+					ButtonName: "报修",
+				}, {
+					ButtonId: "lost",
+					ObjUrl: "/lost",
+					ButtonName: "失物招领管理",
+				}, //TODO
+			},
 		})
 		return
 	}
-	infoBacks := []pojo.InfoBack{{
-			ButtonId: "info",
-			ObjUrl: "/info",
-			ButtonName: "个人信息",
-		}, {
-			ButtonId: "room",
-			ObjUrl: "/room",
-			ButtonName: "寝室",
-		}, {
-			ButtonId: "clean",
-			ObjUrl: "/clean",
-			ButtonName: "卫生检查",
-		}, {
-			ButtonId: "break",
-			ObjUrl: "/break",
-			ButtonName: "报修",
-		}, {
-			ButtonId: "lost",
-			ObjUrl: "/lost",
-			ButtonName: "失物招领",
-		},
-	}
 	c.JSON(200, map[string]interface{}{
 		"msg": "ok",
-		"infos": infoBacks,
+		"infos": []pojo.InfoBack{{
+				ButtonId: "info",
+				ObjUrl: "/info",
+				ButtonName: "个人信息",
+			}, {
+				ButtonId: "room",
+				ObjUrl: "/room",
+				ButtonName: "寝室",
+			}, {
+				ButtonId: "clean",
+				ObjUrl: "/clean",
+				ButtonName: "卫生检查",
+			}, {
+				ButtonId: "break",
+				ObjUrl: "/break",
+				ButtonName: "报修",
+			}, {
+				ButtonId: "lost",
+				ObjUrl: "/lost",
+				ButtonName: "失物招领",
+			},
+		},
 	})
 
 }
@@ -144,4 +164,16 @@ func PostInfo(c *gin.Context) {
 		"msg": "ok",
 		"infos": infos,
 	})
+}
+
+// [#] 失物招领
+// [*] get, /lost
+// [✓] .
+func GetLost(c *gin.Context) {
+	token := c.Query("token")
+	if !service.CheckToken(&token) {
+		c.Redirect(301, "/login")
+		return
+	}
+	c.HTML(200, "lost.html", gin.H{})
 }

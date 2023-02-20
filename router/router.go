@@ -28,6 +28,10 @@ func Build() *gin.Engine {
 		info.GET("", controller.GetInfo)
 		info.POST("", controller.PostInfo)
 	}
+	lost := r.Group("/lost")
+	{
+		lost.GET("", controller.GetLost)
+	}
 	quit := r.Group("/quit")
 	{
 		quit.POST("", controller.QuitWithToken)
