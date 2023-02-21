@@ -13,6 +13,7 @@ func Build() *gin.Engine {
 	r.LoadHTMLGlob("templ/*")
 	r.Static("/js", "static/js")
 	r.Static("/css", "static/css")
+	r.Static("/pic", "static/pic")
 	login := r.Group("/login")
 	{
 		login.GET("", controller.GetLoginPage)
@@ -32,7 +33,8 @@ func Build() *gin.Engine {
 	{
 		lost.GET("", controller.GetLost)
 		lost.POST("", controller.PostLost)
-		lost.POST("/change", controller.Change)
+		lost.POST("/change", controller.LostChange)
+		lost.POST("/new", controller.NewLost)
 	}
 	quit := r.Group("/quit")
 	{

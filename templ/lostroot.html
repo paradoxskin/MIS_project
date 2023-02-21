@@ -1,6 +1,8 @@
-<div class="btn">
-	+
-</div>
+<form class="input-group my-3" id="newLost">
+  <input type="text" id="name" placeholder="物品名称" class="form-control" />
+  <input type="file" class="form-control" id="inputGroupFile01" id="file">
+</form>
+  <button class="btn btn-outline-secondary" id="upload">上传新的失物</button>
 <div class="container" id="lostion">
 </div>
 <script charset="utf-8">
@@ -60,4 +62,23 @@
 			}
 		}
 	);
+	$("#upload").click(function() {
+		console.log(233);
+		var token = localStorage.getItem("token");
+		var formData = new FormData();
+		formData.append("token", token);
+		formData.append("name", document.getElementById("name").value);
+		formData.append("file", document.getElementById("inputGroupFile01").files[0]);
+		$.ajax({
+			url: "/lost/new",
+			data: formData,
+			processData: false,
+			contentType: false,
+			type: "POST",
+			success: function(data) {
+				console.log(data);
+			}
+		});
+		setTimeout($("#lost").click(), 2000)
+	});
 </script>

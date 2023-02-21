@@ -5,6 +5,7 @@ import (
 	"MIS_project/dao"
 	"time"
 	"math/rand"
+	"fmt"
 )
 
 var tokenMap map[string]pojo.Token = make(map[string]pojo.Token)
@@ -117,4 +118,11 @@ func ChangeLostionStatus(token string, cid string) string {
 		dao.ChangeLostStatus(cid, 2)
 	}
 	return "ok"
+}
+
+// [#] 向失物数据库中增加物品
+// [*] to controller
+// [✓] .
+func AddLostion(name string, url string) {
+	dao.AddLost(url, name, fmt.Sprintf("%d/%d/%d", time.Now().Year(), time.Now().Month(), time.Now().Day()))
 }

@@ -4,7 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"MIS_project/pojo"
 	"MIS_project/service"
+	"strings"
 	"fmt"
+	"time"
 )
 
 // [#] 返回登陆界面
@@ -210,7 +212,7 @@ func PostLost(c *gin.Context) {
 // [#] 改变失物的状态
 // [*] post, /lost/change
 // [✓] .
-func Change(c *gin.Context) {
+func LostChange(c *gin.Context) {
 	token, isOk := c.GetPostForm("token")
 	if !isOk {
 		c.JSON(200, map[string]interface{}{
@@ -234,4 +236,41 @@ func Change(c *gin.Context) {
 	c.JSON(200, map[string]interface{}{
 		"msg": service.ChangeLostionStatus(token, cid),
 	})
+}
+
+// [#] 新建一个丢失物
+// [*] post, /lost/new
+// [✓] .
+func NewLost(c *gin.Context) {
+	// 获取token，验证token
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	// 获取物品名和图片文件
+	name, isOk := c.GetPostForm("name")
+	f, err := c.FormFile("file")
+	if err != nil {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	fmt.Println(name)
+	// 将图片保存起来 获取保存之后的url
+	ls := strings.Split(f.Filename, ".")
+	lst := ls[len(ls) - 1]
+	filename := fmt.Sprintf("%d.%s", time.Now().Unix(), lst)
+	c.SaveUploadedFile(f, fmt.Sprintf("./static/pic/%s", filename))
+	// 将数据存入数据库
+	service.AddLostion(name, "/pic/" + filename)
 }

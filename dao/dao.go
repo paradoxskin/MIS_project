@@ -99,3 +99,16 @@ func ChangeLostStatus(id string, changeTo int) {
 	//DB.Exec("update losts set picked = ? where id = ?", 2, 0)
 	DB.Table("losts").Where("id = ?", id).Update("picked", changeTo)
 }
+
+// [#] 将物品存入失物数据库中
+// [*] to service
+// [✓] ...
+func AddLost(url string, what string, when string) {
+	DB.Create(&pojo.Lost{
+		When: when,
+		What: what,
+		Link: url,
+		Picked: 0,
+	})
+	fmt.Println("2")
+}
