@@ -175,7 +175,12 @@ func GetLost(c *gin.Context) {
 		c.Redirect(301, "/login")
 		return
 	}
+	if service.CheckRoot(&token) {
+		c.HTML(200, "lostroot.html", gin.H{})
+		return
+	}
 	c.HTML(200, "lost.html", gin.H{})
+
 }
 
 // [#] 获取失物招领信息
