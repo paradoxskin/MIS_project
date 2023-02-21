@@ -73,3 +73,29 @@ func QueryRoomName(id uint) string {
 	DB.Raw("select room_name from stu_rooms, rooms where stu_rooms.room_id=rooms.id and user_id=?", id).Scan(&roomName)
 	return roomName
 }
+
+// [#] 查找数据库中所有的失物信息
+// [*] to service
+// [✓] ...
+func QueryLost() []pojo.Lostion {
+	var losts []pojo.Lostion
+	DB.Raw("select id,what,\"when\",link,picked from losts").Scan(&losts)
+	return losts
+}
+
+// [#] 查询数据库中指定失物的状态
+// [*] to service
+// [✓] ...
+func QueryLostStatus(id string) int {
+	var lost pojo.Lost
+	DB.Table("losts").Where("id = ?", id).Find(&lost)
+	return lost.Picked
+}
+
+// [#] 改变数据库中失物的状态
+// [*] to service
+// [✓] ...
+func ChangeLostStatus(id string, changeTo int) {
+	//DB.Exec("update losts set picked = ? where id = ?", 2, 0)
+	DB.Table("losts").Where("id = ?", id).Update("picked", changeTo)
+}

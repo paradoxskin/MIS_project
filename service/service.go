@@ -89,3 +89,32 @@ func PersonalInfo(token string) []string {
 		isRoot,
 	}
 }
+
+// [#] 获取数据库中的失物信息
+// [*] to controller
+// [✓] ...
+func QueryLosts() []pojo.Lostion {
+	return dao.QueryLost()
+}
+
+// [#] 尝试改变数据库中失物的状态
+// [*] to controller
+// [✓] .
+func ChangeLostionStatus(token string, cid string) string {
+	// 查询物品的状态
+	status := dao.QueryLostStatus(cid)
+	if status == 2 {
+		return "fail"
+	}
+	if status == 0 {
+	// 如果物品状态0，置为1
+		dao.ChangeLostStatus(cid, 1)
+	} else {
+	// 如果物品状态1且用户为root，置为2
+		if !CheckRoot(&token) {
+			return "fail"
+		}
+		dao.ChangeLostStatus(cid, 2)
+	}
+	return "ok"
+}

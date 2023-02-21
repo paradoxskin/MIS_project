@@ -29,3 +29,14 @@ type Token struct {
 	Token string
 	Id  uint
 }
+
+// [#] 返回给用户的失物招领信息
+// [*] send json
+// [✓] ..
+type Lostion struct {
+	Id uint `json:"id"`
+	What string `json:"name"`
+	When string `json:"date"`
+	Link string `json:"link"`
+	Picked string `json:"status"`
+}

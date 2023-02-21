@@ -31,6 +31,8 @@ func Build() *gin.Engine {
 	lost := r.Group("/lost")
 	{
 		lost.GET("", controller.GetLost)
+		lost.POST("", controller.PostLost)
+		lost.POST("/change", controller.Change)
 	}
 	quit := r.Group("/quit")
 	{

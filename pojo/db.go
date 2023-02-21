@@ -66,10 +66,10 @@ type Visit struct {
 // [✓] ...
 type Lost struct {
 	gorm.Model
-	When int64
+	When string
 	What string
 	Link string
-	// 0表示未被取走，1表示已被取走
+	// 0表示未被取走，1表示已被预定，2表示已被取走
 	Picked int
 	PickerId uint
 }

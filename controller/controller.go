@@ -177,3 +177,56 @@ func GetLost(c *gin.Context) {
 	}
 	c.HTML(200, "lost.html", gin.H{})
 }
+
+// [#] 获取失物招领信息
+// [*] post, /lost
+// [✓] .
+func PostLost(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	losts := service.QueryLosts()
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"losts": losts,
+	})
+}
+
+// [#] 改变失物的状态
+// [*] post, /lost/change
+// [✓] .
+func Change(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	cid, isOk := c.GetPostForm("id")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	c.JSON(200, map[string]interface{}{
+		"msg": service.ChangeLostionStatus(token, cid),
+	})
+}
