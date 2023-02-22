@@ -41,7 +41,7 @@ type Clean struct {
 // [✓] ...
 type Break struct {
 	gorm.Model
-	PosterId uint
+	RoomId uint
 	Desc string
 	// 0表示上报，1表示处理完成
 	Status int

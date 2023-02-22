@@ -1,16 +1,30 @@
-<table class="table">
+<form class="input-group my-3" id="newLost">
+	<input type="text" id="name" placeholder="上报问题" class="form-control" />
+	<div class="btn btn-outline-secondary" id="upload">上报</div>
+</form>
+<table class="table py-2">
 	<thead><tr>
 	<th scope="col">#</th>
 	<th scope="col">寝室</th>
 	<th scope="col">问题</th>
-	<th scope="col">时间</th>
+	<th scope="col">维修状态</th>
 	</tr></thead>
-	<tbody>
-		<tr>
-			<td scope="row">1</td>
-			<td>302</td>
-			<td>32312</td>
-			<td>2023/2/22</td>
-		</tr>
+	<tbody id="body">
 	</tbody>
 </table>
+<script charset="utf-8">
+	var token = localStorage.getItem("token");
+	$.post(
+		"/break",
+		{"token": token},
+		function(data) {
+			console.log(data);
+			if(data.msg == "ok") {
+				var ls = ["btn-warning\">未维修", "btn-success\">已维修"]
+				for(var i = 0; i < data.breaks.length; i++) {
+					$("#body").append("<tr> <td scope=\"row\">"+(i+1)+"</td> <td>"+data.breaks[i].room+"</td> <td>"+data.breaks[i].desc+"</td> <td><div class=\"btn "+ls[data.breaks[i].status]+" </div></td> </tr>")
+				}
+			}
+		}
+	)
+</script>

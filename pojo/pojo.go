@@ -40,3 +40,12 @@ type Lostion struct {
 	Link string `json:"link"`
 	Picked string `json:"status"`
 }
+
+// [#] 返回给用户的报修信息
+// [*] send json
+// [✓] ...
+type Breaks struct {
+	Room_name string `json:"room"`
+	Desc string `json:"desc"`
+	Status int `json:"status"`
+}

@@ -112,3 +112,9 @@ func AddLost(url string, what string, when string) {
 	})
 	fmt.Println("2")
 }
+
+func QueryBreaks() []pojo.Breaks{
+	var breaks []pojo.Breaks
+	DB.Raw("select room_name,desc,status from breaks, rooms where rooms.id=breaks.room_id").Scan(&breaks)
+	return breaks
+}

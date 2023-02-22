@@ -72,7 +72,7 @@ func RemoveToken(token *string) {
 }
 // [#] 获取token对应用户的姓名，寝室，权限
 // [*] to controller
-// [✓] .
+// [✓] ...
 func PersonalInfo(token string) []string {
 	id := tokenMap[token].Id
 	name, err := dao.QueryName(id)
@@ -100,7 +100,7 @@ func QueryLosts() []pojo.Lostion {
 
 // [#] 尝试改变数据库中失物的状态
 // [*] to controller
-// [✓] .
+// [✓] ...
 func ChangeLostionStatus(token string, cid string) string {
 	// 查询物品的状态
 	status := dao.QueryLostStatus(cid)
@@ -122,7 +122,14 @@ func ChangeLostionStatus(token string, cid string) string {
 
 // [#] 向失物数据库中增加物品
 // [*] to controller
-// [✓] .
+// [✓] ...
 func AddLostion(name string, url string) {
 	dao.AddLost(url, name, fmt.Sprintf("%d/%d/%d", time.Now().Year(), time.Now().Month(), time.Now().Day()))
+}
+
+// [#] 报修信息
+// [*] to controller
+// [✓] .
+func BreaksInfo() []pojo.Breaks{
+	return dao.QueryBreaks()
 }

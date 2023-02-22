@@ -274,3 +274,38 @@ func NewLost(c *gin.Context) {
 	// 将数据存入数据库
 	service.AddLostion(name, "/pic/" + filename)
 }
+
+// [#] 报修的页面
+// [*] get, /break
+// [✓] ..
+func GetBreak(c *gin.Context) {
+	token := c.Query("token")
+	if !service.CheckToken(&token) {
+		c.Redirect(301, "/login")
+		return
+	}
+	c.HTML(200, "break.html", gin.H{})
+}
+
+// [#] 返回报修的信息
+// [*] post, /break
+// [✓] .
+func PostBreak(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"breaks": service.BreaksInfo(),
+	})
+}

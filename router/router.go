@@ -36,6 +36,11 @@ func Build() *gin.Engine {
 		lost.POST("/change", controller.LostChange)
 		lost.POST("/new", controller.NewLost)
 	}
+	bk := r.Group("/break")
+	{
+		bk.GET("", controller.GetBreak)
+		bk.POST("", controller.PostBreak)
+	}
 	quit := r.Group("/quit")
 	{
 		quit.POST("", controller.QuitWithToken)
