@@ -133,3 +133,24 @@ func AddLostion(name string, url string) {
 func BreaksInfo() []pojo.Breaks{
 	return dao.QueryBreaks()
 }
+
+// [#] 检测当前登陆的用户是否为维修员
+// [*] to controller
+// [✓] ...
+func CheckFix(token string) bool {
+	id := tokenMap[token].Id
+	power, _ := dao.QueryPower(&id)
+	isFix := power == 2
+	return isFix
+}
+
+// [#] 维修指定id的物品
+// [*] to controller
+// [✓] ...
+func FixBreak(id string) string {
+	if dao.QueryBreakStatus(id) == 1 {
+		return "fail"
+	}
+	dao.ChangeBreakStatus(id)
+	return "ok"
+}

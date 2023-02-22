@@ -113,8 +113,27 @@ func AddLost(url string, what string, when string) {
 	fmt.Println("2")
 }
 
+// [#] 查询报修信息
+// [*] to service
+// [✓] ...
 func QueryBreaks() []pojo.Breaks{
 	var breaks []pojo.Breaks
-	DB.Raw("select room_name,desc,status from breaks, rooms where rooms.id=breaks.room_id").Scan(&breaks)
+	DB.Raw("select breaks.id,room_name,desc,status from breaks, rooms where rooms.id=breaks.room_id").Scan(&breaks)
 	return breaks
+}
+
+// [#] 维修报修
+// [*] to service
+// [✓] ...
+func ChangeBreakStatus(id string) {
+	DB.Table("breaks").Where("id = ?", id).Update("status", 1)
+}
+
+// [#] 查询指定id的报修状态
+// [*] to service
+// [✓] ...
+func QueryBreakStatus(id string) int{
+	var tmp pojo.Break
+	DB.Table("breaks").Where("id = ?", id).Find(&tmp)
+	return tmp.Status
 }

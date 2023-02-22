@@ -58,6 +58,22 @@ func GiveIndexInfo(c *gin.Context) {
 		})
 		return
 	}
+	if service.CheckFix(token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "ok",
+			"infos": []pojo.InfoBack{{
+					ButtonId: "info",
+					ObjUrl: "/info",
+					ButtonName: "个人信息",
+				}, {
+					ButtonId: "break",
+					ObjUrl: "/break",
+					ButtonName: "报修",
+				},
+			},
+		})
+		return
+	}
 	if service.CheckRoot(&token) {
 		c.JSON(200, map[string]interface{}{
 			"msg": "ok",
@@ -284,6 +300,10 @@ func GetBreak(c *gin.Context) {
 		c.Redirect(301, "/login")
 		return
 	}
+	if service.CheckFix(token) {
+		c.HTML(200, "breakfix.html", gin.H{})
+		return
+	}
 	c.HTML(200, "break.html", gin.H{})
 }
 
@@ -307,5 +327,40 @@ func PostBreak(c *gin.Context) {
 	c.JSON(200, map[string]interface{}{
 		"msg": "ok",
 		"breaks": service.BreaksInfo(),
+	})
+}
+
+// [#] 维修报修物品
+// [*] post, /break/fix
+// [✓] .
+func FixBreak(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckFix(token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	id, isOk := c.GetPostForm("id")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	c.JSON(200, map[string]interface{}{
+		"msg": service.FixBreak(id),
 	})
 }

@@ -45,6 +45,7 @@ type Lostion struct {
 // [*] send json
 // [✓] ...
 type Breaks struct {
+	Id uint `json:"id"`
 	Room_name string `json:"room"`
 	Desc string `json:"desc"`
 	Status int `json:"status"`
