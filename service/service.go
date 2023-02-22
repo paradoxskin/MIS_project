@@ -82,6 +82,8 @@ func PersonalInfo(token string) []string {
 	isRoot := "普通用户"
 	if CheckRoot(&token) {
 		isRoot = "管理员"
+	} else if CheckFix(token) {
+		isRoot = "维修员"
 	}
 	roomName := dao.QueryRoomName(id)
 	return []string {
@@ -153,4 +155,9 @@ func FixBreak(id string) string {
 	}
 	dao.ChangeBreakStatus(id)
 	return "ok"
+}
+
+func NewBreak(desc string, token string) {
+	id := tokenMap[token].Id
+	dao.AddBreak(dao.QueryRoomId(id), desc)
 }

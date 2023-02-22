@@ -63,7 +63,6 @@
 		}
 	);
 	$("#upload").click(function() {
-		console.log(233);
 		var token = localStorage.getItem("token");
 		var formData = new FormData();
 		formData.append("token", token);
@@ -79,6 +78,6 @@
 				console.log(data);
 			}
 		});
-		setTimeout($("#lost").click(), 2000)
+		setTimeout($("#lost").click(), 2000);
 	});
 </script>

@@ -74,6 +74,15 @@ func QueryRoomName(id uint) string {
 	return roomName
 }
 
+// [#] 根据id查找用户的寝室id
+// [*] to service
+// [✓] ...
+func QueryRoomId(id uint) uint {
+	var roomId uint
+	DB.Raw("select room_id from stu_rooms,users where stu_rooms.user_id=users.id and user_id=?", id).Scan(&roomId)
+	return roomId
+}
+
 // [#] 查找数据库中所有的失物信息
 // [*] to service
 // [✓] ...
@@ -136,4 +145,8 @@ func QueryBreakStatus(id string) int{
 	var tmp pojo.Break
 	DB.Table("breaks").Where("id = ?", id).Find(&tmp)
 	return tmp.Status
+}
+
+func AddBreak(roomId uint, desc string) {
+	DB.Table("breaks").Create(&pojo.Break{RoomId: roomId, Desc: desc, Status: 0})
 }

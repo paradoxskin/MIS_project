@@ -364,3 +364,31 @@ func FixBreak(c *gin.Context) {
 		"msg": service.FixBreak(id),
 	})
 }
+
+// [#] 上报新的报修
+// [*] post, /break/new
+// [✓] .
+func NewBreak(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	desc, isOk := c.GetPostForm("desc")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	fmt.Println(desc)
+	service.NewBreak(desc, token)
+}

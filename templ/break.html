@@ -1,5 +1,5 @@
 <form class="input-group my-3" id="newLost">
-	<input type="text" id="name" placeholder="上报问题" class="form-control" />
+	<input type="text" id="desc" placeholder="上报问题" class="form-control" />
 	<div class="btn btn-outline-secondary" id="upload">上报</div>
 </form>
 <table class="table py-2">
@@ -26,5 +26,22 @@
 				}
 			}
 		}
-	)
+	);
+	$("#upload").click(function() {
+		var token = localStorage.getItem("token");
+		var formData = new FormData();
+		formData.append("token", token);
+		formData.append("desc", document.getElementById("desc").value);
+		$.ajax({
+			url: "/break/new",
+			data: formData,
+			processData: false,
+			contentType: false,
+			type: "POST",
+			success: function(data) {
+				console.log(data);
+			}
+		});
+		setTimeout($("#break").click(), 2000);
+	});
 </script>

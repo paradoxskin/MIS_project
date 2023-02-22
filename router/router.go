@@ -41,6 +41,7 @@ func Build() *gin.Engine {
 		bk.GET("", controller.GetBreak)
 		bk.POST("", controller.PostBreak)
 		bk.POST("/fix", controller.FixBreak)
+		bk.POST("/new", controller.NewBreak)
 	}
 	quit := r.Group("/quit")
 	{
