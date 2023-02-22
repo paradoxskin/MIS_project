@@ -392,3 +392,26 @@ func NewBreak(c *gin.Context) {
 	fmt.Println(desc)
 	service.NewBreak(desc, token)
 }
+
+// [#] 返回卫生检查的页面
+// [*] get, /clean
+// [✓] .
+func GetClean(c *gin.Context) {
+	token := c.Query("token")
+	if !service.CheckToken(&token) {
+		c.Redirect(301, "/login")
+		return
+	}
+	if service.CheckRoot(&token) {
+		c.HTML(200, "cleanroot.html", gin.H{})
+		return
+	}
+	c.HTML(200, "clean.html", gin.H{})
+}
+
+// [#] 返回卫生检查列表
+// [*] post, /clean
+// [✓] .
+func PostClean(c *gin.Context) {
+	
+}

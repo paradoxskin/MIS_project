@@ -43,6 +43,11 @@ func Build() *gin.Engine {
 		bk.POST("/fix", controller.FixBreak)
 		bk.POST("/new", controller.NewBreak)
 	}
+	clean := r.Group("/clean")
+	{
+		clean.GET("", controller.GetClean)
+		clean.POST("", controller.PostClean)
+	}
 	quit := r.Group("/quit")
 	{
 		quit.POST("", controller.QuitWithToken)
