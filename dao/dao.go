@@ -141,12 +141,24 @@ func ChangeBreakStatus(id string) {
 // [#] 查询指定id的报修状态
 // [*] to service
 // [✓] ...
-func QueryBreakStatus(id string) int{
+func QueryBreakStatus(id string) int {
 	var tmp pojo.Break
 	DB.Table("breaks").Where("id = ?", id).Find(&tmp)
 	return tmp.Status
 }
 
+// [#] 添加保修记录
+// [*] to service
+// [✓] ...
 func AddBreak(roomId uint, desc string) {
 	DB.Table("breaks").Create(&pojo.Break{RoomId: roomId, Desc: desc, Status: 0})
+}
+
+// [#] 查询卫生检查
+// [*] to service
+// [✓] ...
+func QueryClean() []pojo.Cleans {
+	var tmp []pojo.Cleans
+	DB.Raw("select room_name, desc, points from rooms, cleans where rooms.id=cleans.room_id").Scan(&tmp)
+	return tmp
 }

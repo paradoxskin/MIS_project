@@ -50,3 +50,9 @@ type Breaks struct {
 	Desc string `json:"desc"`
 	Status int `json:"status"`
 }
+
+type Cleans struct {
+	Room_name string `json:"room_name"`
+	Desc string `json:"desc"`
+	Points float64 `json:"points"`
+}

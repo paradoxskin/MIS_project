@@ -413,5 +413,21 @@ func GetClean(c *gin.Context) {
 // [*] post, /clean
 // [✓] .
 func PostClean(c *gin.Context) {
-	
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"cleans": service.Cleans(),
+	})
 }

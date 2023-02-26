@@ -161,3 +161,10 @@ func NewBreak(desc string, token string) {
 	id := tokenMap[token].Id
 	dao.AddBreak(dao.QueryRoomId(id), desc)
 }
+
+// [#] 获取卫生检查记录列表
+// [*] to controller
+// [✓] .
+func Cleans() []pojo.Cleans {
+	return dao.QueryClean()
+}
