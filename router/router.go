@@ -47,6 +47,7 @@ func Build() *gin.Engine {
 	{
 		clean.GET("", controller.GetClean)
 		clean.POST("", controller.PostClean)
+		clean.POST("/new", controller.NewClean)
 	}
 	room := r.Group("/room")
 	{

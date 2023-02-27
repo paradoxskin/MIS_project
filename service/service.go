@@ -171,7 +171,17 @@ func Cleans() []pojo.Cleans {
 
 // [#] 获取寝室列表
 // [*] to controller
-// [✓] .
+// [✓] ...
 func RoomList() []pojo.RoomList {
 	return dao.QueryRoomList()
+}
+
+// [#] 创建新的卫生检查记录并且修改数据库中的得分
+// [*] to controller
+// [✓] ..
+func NewClean(roomId uint, desc string, point float64) {
+	dao.AddClean(roomId, desc, point)
+	oldScore := dao.QueryRoomScore(roomId)
+	newScore := oldScore + point
+	dao.UpdateRoomScore(roomId, newScore)
 }

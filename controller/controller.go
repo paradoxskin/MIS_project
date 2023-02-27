@@ -7,6 +7,7 @@ import (
 	"strings"
 	"fmt"
 	"time"
+	"strconv"
 )
 
 // [#] 返回登陆界面
@@ -452,5 +453,58 @@ func PostRoomList(c *gin.Context) {
 	c.JSON(200, map[string]interface{}{
 		"msg": "ok",
 		"rooms": service.RoomList(),
+	})
+}
+
+// [#] 创建新的卫生检查记录
+// [*] post, /clean/new
+// [✓] ..
+func NewClean(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	roomIdS, isOk := c.GetPostForm("room_id")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	roomIdI, err := strconv.Atoi(roomIdS)
+	roomId := uint(roomIdI)
+	desc, isOk := c.GetPostForm("desc")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	scoreS, isOk := c.GetPostForm("score")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	score, err := strconv.ParseFloat(scoreS, 64)
+	if err != nil {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	service.NewClean(roomId, desc, score)
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
 	})
 }

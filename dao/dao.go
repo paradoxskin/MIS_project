@@ -163,8 +163,34 @@ func QueryClean() []pojo.Cleans {
 	return tmp
 }
 
+// [#] 查询寝室列表
+// [*] to service
+// [✓] ...
 func QueryRoomList() []pojo.RoomList {
 	var tmp []pojo.RoomList
 	DB.Raw("select id,room_name from rooms").Scan(&tmp)
 	return tmp
+}
+
+// [#] 创建新的卫生记录
+// [*] to service
+// [✓] ...
+func AddClean(roomId uint, desc string, score float64) {
+	DB.Table("cleans").Create(&pojo.Clean{RoomId: roomId, Desc: desc, Points: score})
+}
+
+// [#] 查询寝室得分
+// [*] to service
+// [✓] .
+func QueryRoomScore(roomId uint) float64 {
+	var tmp float64
+	DB.Raw("select score from rooms where id = ?", roomId).Scan(&tmp)
+	return tmp
+}
+
+// [#] 修改寝室得分
+// [*] to service
+// [✓] .
+func UpdateRoomScore(roomId uint, score float64) {
+	DB.Table("rooms").Where("id = ?", roomId).Update("score", score)
 }
