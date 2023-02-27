@@ -3,7 +3,7 @@
 		<option selected>选择目标寝室</option>
 	</select>
 	<select id="score" class="form-select">
-		<option selected>分数修改</option>
+		<option selected>请选择分数修改</option>
 		<option value="1">+1</option>
 		<option value="2">+2</option>
 		<option value="3">+3</option>
@@ -31,7 +31,7 @@
 		{"token": token},
 		function(data) {
 			console.log(data);
-			var col = ["success\">", "danger\">"]
+			var col = ["success\">+", "danger\">"]
 			if(data.msg == "ok") {
 				for(var i = 0; i < data.cleans.length; i++) {
 					var stat = 0;
