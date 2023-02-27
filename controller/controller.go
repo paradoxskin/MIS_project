@@ -83,6 +83,10 @@ func GiveIndexInfo(c *gin.Context) {
 					ObjUrl: "/info",
 					ButtonName: "个人信息",
 				}, {
+					ButtonId: "user",
+					ObjUrl: "/user",
+					ButtonName: "用户管理",
+				}, {
 					ButtonId: "room",
 					ObjUrl: "/room",
 					ButtonName: "寝室管理",
