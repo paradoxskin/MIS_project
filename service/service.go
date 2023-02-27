@@ -164,7 +164,14 @@ func NewBreak(desc string, token string) {
 
 // [#] 获取卫生检查记录列表
 // [*] to controller
-// [✓] .
+// [✓] ...
 func Cleans() []pojo.Cleans {
 	return dao.QueryClean()
+}
+
+// [#] 获取寝室列表
+// [*] to controller
+// [✓] .
+func RoomList() []pojo.RoomList {
+	return dao.QueryRoomList()
 }

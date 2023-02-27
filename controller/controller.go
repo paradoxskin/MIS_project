@@ -431,3 +431,26 @@ func PostClean(c *gin.Context) {
 		"cleans": service.Cleans(),
 	})
 }
+
+// [#] 查看寝室列表
+// [*] post, /room/list
+// [✓] ..
+func PostRoomList(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"rooms": service.RoomList(),
+	})
+}

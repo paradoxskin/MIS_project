@@ -51,8 +51,19 @@ type Breaks struct {
 	Status int `json:"status"`
 }
 
+// [#] 返回给用户的卫生检查列表
+// [*] send json
+// [✓] ...
 type Cleans struct {
 	Room_name string `json:"room_name"`
 	Desc string `json:"desc"`
 	Points float64 `json:"points"`
+}
+
+// [#] 返回的寝室列表
+// [*] send json
+// [✓] ...
+type RoomList struct {
+	Room_name string `json:"room_name"`
+	ID uint `json:"room_id"`
 }

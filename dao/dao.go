@@ -162,3 +162,9 @@ func QueryClean() []pojo.Cleans {
 	DB.Raw("select room_name, desc, points from rooms, cleans where rooms.id=cleans.room_id").Scan(&tmp)
 	return tmp
 }
+
+func QueryRoomList() []pojo.RoomList {
+	var tmp []pojo.RoomList
+	DB.Raw("select id,room_name from rooms").Scan(&tmp)
+	return tmp
+}

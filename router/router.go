@@ -48,6 +48,10 @@ func Build() *gin.Engine {
 		clean.GET("", controller.GetClean)
 		clean.POST("", controller.PostClean)
 	}
+	room := r.Group("/room")
+	{
+		room.POST("/list", controller.PostRoomList)
+	}
 	quit := r.Group("/quit")
 	{
 		quit.POST("", controller.QuitWithToken)
