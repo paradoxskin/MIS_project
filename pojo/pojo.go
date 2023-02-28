@@ -85,3 +85,9 @@ type RoomInfo2 struct {
 	Room_name string `json:"room_name"`
 	Score float64 `json:"score"`
 }
+
+type UserInfo struct {
+	UserName string `json:"username"`
+	Name string `json:"name"`
+	Room_name string `json:"room_name"`
+}

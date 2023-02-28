@@ -630,3 +630,75 @@ func Roomates(c *gin.Context) {
 		"info": service.Roomates(id),
 	})
 }
+
+// [#] 获取user页面
+// [*] get, /user
+// [✓] ...
+func GetUser(c *gin.Context) {
+	token := c.Query("token")
+	if !service.CheckToken(&token) {
+		c.Redirect(301, "/login")
+		return
+	}
+	if !service.CheckRoot(&token){
+		c.JSON(200, map[string]interface{}{"msg": "fail"})
+		return
+	}
+	c.HTML(200, "user.html", gin.H{})// index
+}
+
+// [#] 获取用户列表
+// [*] post, /user
+// [✓] .
+func PostUser(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckRoot(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"info": service.UserList(),
+	})
+
+}
+
+// [#] 创建新用户
+// [*] post, /user/new
+// [✓] .
+func NewUser(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckRoot(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+
+}

@@ -218,3 +218,10 @@ func RoomInfos() []pojo.RoomInfo2{
 func Roomates(roomId uint) []string{
 	return dao.QueryRoomates(roomId)
 }
+
+// [#] 获取用户列表
+// [*] to controller
+// [✓] ...
+func UserList() []pojo.UserInfo{
+	return dao.QueryUserInfo()
+}

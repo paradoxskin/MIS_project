@@ -219,3 +219,12 @@ func QueryRoomInfos() []pojo.RoomInfo2{
 	DB.Raw("select id,room_name,score from rooms").Scan(&tmp)
 	return tmp
 }
+
+// [#] 获取所有用户信息
+// [*] to service
+// [✓] ...
+func QueryUserInfo() []pojo.UserInfo {
+	var tmp []pojo.UserInfo
+	DB.Raw("select user_name,name,room_name from users,rooms,stu_rooms where users.id=stu_rooms.user_id and stu_rooms.room_id=rooms.id").Scan(&tmp)
+	return tmp
+}
