@@ -1,19 +1,26 @@
-<form class="input-group my-3" id="newLost">
-	<select class="form-select" id="select">
-		<option selected>选择目标寝室</option>
-	</select>
-	<select id="score" class="form-select">
-		<option selected>请选择分数修改</option>
-		<option value="1">+1</option>
-		<option value="2">+2</option>
-		<option value="3">+3</option>
-		<option value="-1">-1</option>
-		<option value="-2">-2</option>
-		<option value="-3">-3</option>
-	</select>
-  <input type="text" id="desc" placeholder="具体事项" class="form-control" />
-  <div class="btn btn-outline-secondary" id="upload">上传新的记录</div>
-</form>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<img src="/pic/send.svg" alt="Bootstrap" width="16" height="16">
+	<h5>上传卫生检查记录</h5>
+	<form class="input-group my-3" id="newLost">
+		<select class="form-select" id="select">
+			<option selected>选择目标寝室</option>
+		</select>
+		<select id="score" class="form-select">
+			<option selected>请选择分数修改</option>
+			<option value="1">+1</option>
+			<option value="2">+2</option>
+			<option value="3">+3</option>
+			<option value="-1">-1</option>
+			<option value="-2">-2</option>
+			<option value="-3">-3</option>
+		</select>
+	  <input type="text" id="desc" placeholder="具体事项" class="form-control" />
+	  <div class="btn btn-outline-secondary" id="upload">上传新的记录</div>
+	</form>
+</div>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<img src="/pic/checkmark.svg" alt="Bootstrap" width="16" height="16">
+	<h5>卫生检查报告</h5>
 <table class="table py-2">
 	<thead><tr>
 	<th scope="col">#</th>
@@ -24,6 +31,7 @@
 	<tbody id="body">
 	</tbody>
 </table>
+</div>
 <script charset="utf-8">
 	var token = localStorage.getItem("token");
 	$.post(

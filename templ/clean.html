@@ -1,13 +1,17 @@
-<table class="table py-2">
-	<thead><tr>
-	<th scope="col">#</th>
-	<th scope="col">寝室</th>
-	<th scope="col">分数</th>
-	<th scope="col">原因</th>
-	</tr></thead>
-	<tbody id="body">
-	</tbody>
-</table>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<img src="/pic/checkmark.svg" alt="Bootstrap" width="16" height="16">
+	<h5>卫生检查报告</h5>
+	<table class="table py-2">
+		<thead><tr>
+		<th scope="col">#</th>
+		<th scope="col">寝室</th>
+		<th scope="col">分数</th>
+		<th scope="col">原因</th>
+		</tr></thead>
+		<tbody id="body">
+		</tbody>
+	</table>
+</div>
 <script charset="utf-8">
 	var token = localStorage.getItem("token");
 	$.post(
