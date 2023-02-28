@@ -522,6 +522,10 @@ func GetRoom(c *gin.Context) {
 		c.Redirect(301, "/login")
 		return
 	}
+	if service.CheckRoot(&token) {
+		c.HTML(200, "roomroot.html", gin.H{})
+		return
+	}
 	c.HTML(200, "room.html", gin.H{})
 }
 
@@ -547,7 +551,32 @@ func PostRoom(c *gin.Context) {
 		"msg": "ok",
 		"info": service.RoomInfo(token),
 	})
-	// 获取当前用户id
-	// 获取当前用户是哪个寝室的
-	// 获取寝室信息
+}
+
+// [#] 新建寝室
+// [*] post, /room/new
+// [✓] ...
+func NewRoom(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	name, isOk := c.GetPostForm("name")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	service.NewRoom(name)
+	c.JSON(200, map[string]interface{}{"msg":"ok"})
 }

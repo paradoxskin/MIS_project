@@ -1,0 +1,47 @@
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<img src="/pic/send.svg" alt="Bootstrap" width="16" height="16">
+	<h5>添加寝室</h5>
+	<form class="input-group my-3" id="newLost">
+		<input type="text" id="name" placeholder="寝室名称" class="form-control" />
+		<div class="btn btn-outline-secondary" id="upload">添加</div>
+	</form>
+</div>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<img src="/pic/home.svg" alt="Bootstrap" width="16" height="16">
+	<h3 class="border-bottom">寝室列表</h3>
+	<table class="table">
+		<thead><tr>
+		<th scope="col">#</th>
+		<th scope="col">寝室</th>
+		<th scope="col">得分</th>
+		<th scope="col">操作</th>
+		</tr></thead>
+		<tbody id="body">
+			<tr>
+				<td scope="row">1</td>
+				<td>311</td>
+				<td>100</td>
+				<td><div class="btn btn-success">查看成员</div></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script charset="utf-8">
+	$("#upload").click(function() {
+		var token = localStorage.getItem("token");
+		var formData = new FormData();
+		formData.append("token", token);
+		formData.append("name", document.getElementById("name").value);
+		$.ajax({
+			url: "/room/new",
+			data: formData,
+			processData: false,
+			contentType: false,
+			type: "POST",
+			success: function(data) {
+				console.log(data);
+			}
+		});
+		setTimeout($("#break").click(), 2000);
+	});
+</script>

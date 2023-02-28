@@ -197,3 +197,10 @@ func RoomInfo(token string) pojo.RoomInfo{
 	// 获取寝室信息
 	return pojo.RoomInfo{Room_name: dao.QueryRoomName(id), Score: dao.QueryRoomScore(roomId), Name: dao.QueryRoomates(roomId)}
 }
+
+// [#] 新建寝室
+// [*] from controller
+// [✓] ...
+func NewRoom(name string) {
+	dao.NewRoom(name)
+}

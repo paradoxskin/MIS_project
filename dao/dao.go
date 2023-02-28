@@ -197,9 +197,16 @@ func UpdateRoomScore(roomId uint, score float64) {
 
 // [#] 查询寝室成员
 // [*] to service
-// [✓] .
+// [✓] ...
 func QueryRoomates(roomId uint) []string{
 	var tmp []string
 	DB.Raw("select name from stu_rooms,users where stu_rooms.user_id=users.id and room_id=?", roomId).Scan(&tmp)
 	return tmp
+}
+
+// [#] 往数据库里新建寝室
+// [*] to service
+// [✓] ...
+func NewRoom(name string) {
+	DB.Table("rooms").Create(&pojo.Room{Room_name: name, Score: 5})
 }
