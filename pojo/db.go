@@ -79,6 +79,6 @@ type Lost struct {
 // [✓] ...
 type StuRoom struct {
 	gorm.Model
-	UserId int64
-	RoomId int64
+	UserId uint
+	RoomId uint
 }

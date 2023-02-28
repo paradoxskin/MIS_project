@@ -51,7 +51,7 @@
 		formData.append("token", token);
 		formData.append("username", document.getElementById("username").value);
 		formData.append("name", document.getElementById("name").value);
-		formData.append("roomname", document.getElementById("select").value);
+		formData.append("roomid", document.getElementById("select").value);
 		$.ajax({
 			url: "/user/new",
 			data: formData,
@@ -63,6 +63,6 @@
 			}
 		});
 		console.log(formData)
-		setTimeout($("#clean").click(), 2000);
+		setTimeout($("#user").click(), 2000);
 	});
 </script>

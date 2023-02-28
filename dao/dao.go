@@ -228,3 +228,18 @@ func QueryUserInfo() []pojo.UserInfo {
 	DB.Raw("select user_name,name,room_name from users,rooms,stu_rooms where users.id=stu_rooms.user_id and stu_rooms.room_id=rooms.id").Scan(&tmp)
 	return tmp
 }
+
+// [#] 新建用户
+// [*] to service
+// [✓] ...
+func CreateUser(username string, name string) {
+	// 默认初始密码123456
+	DB.Table("users").Create(&pojo.User{UserName: username, Password: "123456", Name: name, Power: 0})
+}
+
+// [#] 新建stu_rooms的关联记录
+// [*] to service
+// [✓] ...
+func NewStuRoom(userId uint, roomId uint) {
+	DB.Table("stu_rooms").Create(&pojo.StuRoom{UserId: userId, RoomId: roomId})
+}

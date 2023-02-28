@@ -225,3 +225,14 @@ func Roomates(roomId uint) []string{
 func UserList() []pojo.UserInfo{
 	return dao.QueryUserInfo()
 }
+
+// [#] 创建新用户
+// [*] to controller
+// [✓] ...
+func NewUser(username string, name string, roomId uint) {
+	// 在users新建用户
+	dao.CreateUser(username, name)
+	id, _ := dao.QueryId(&username)
+	// 在stu_rooms新建关联记录
+	dao.NewStuRoom(id, roomId)
+}

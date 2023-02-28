@@ -700,5 +700,15 @@ func NewUser(c *gin.Context) {
 		})
 		return
 	}
-
+	username, isOk := c.GetPostForm("username")
+	name, isOk := c.GetPostForm("name")
+	roomIdS, isOk := c.GetPostForm("roomid")
+	roomIdI, err := strconv.Atoi(roomIdS)
+	if err != nil {
+		c.JSON(200, map[string]interface{}{"msg": "fail"})
+		return
+	}
+	roomId := uint(roomIdI)
+	service.NewUser(username, name, roomId)
+	c.JSON(200, map[string]interface{}{"msg": "ok"})
 }
