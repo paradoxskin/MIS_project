@@ -22,7 +22,7 @@
 					if(data.cleans[i].points < 0) {
 						stat = 1;
 					}
-					$("#body").append("<tr> <td scope=\"row\">"+i+"</td> <td>"+data.cleans[i].room_name+"</td> <td class=\"text-"+col[stat]+data.cleans[i].points+"</td> <td>"+data.cleans[i].desc+"</td> </tr>")
+					$("#body").append("<tr> <td scope=\"row\">"+(i+1)+"</td> <td>"+data.cleans[i].room_name+"</td> <td class=\"text-"+col[stat]+data.cleans[i].points+"</td> <td>"+data.cleans[i].desc+"</td> </tr>")
 				}
 			}
 		}

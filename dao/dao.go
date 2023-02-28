@@ -181,7 +181,7 @@ func AddClean(roomId uint, desc string, score float64) {
 
 // [#] 查询寝室得分
 // [*] to service
-// [✓] .
+// [✓] ...
 func QueryRoomScore(roomId uint) float64 {
 	var tmp float64
 	DB.Raw("select score from rooms where id = ?", roomId).Scan(&tmp)
@@ -190,7 +190,16 @@ func QueryRoomScore(roomId uint) float64 {
 
 // [#] 修改寝室得分
 // [*] to service
-// [✓] .
+// [✓] ...
 func UpdateRoomScore(roomId uint, score float64) {
 	DB.Table("rooms").Where("id = ?", roomId).Update("score", score)
+}
+
+// [#] 查询寝室成员
+// [*] to service
+// [✓] .
+func QueryRoomates(roomId uint) []string{
+	var tmp []string
+	DB.Raw("select name from stu_rooms,users where stu_rooms.user_id=users.id and room_id=?", roomId).Scan(&tmp)
+	return tmp
 }

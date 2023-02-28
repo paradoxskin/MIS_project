@@ -512,3 +512,42 @@ func NewClean(c *gin.Context) {
 		"msg": "ok",
 	})
 }
+
+// [#] 获取房间页面
+// [*] get, /room
+// [✓] .
+func GetRoom(c *gin.Context) {
+	token := c.Query("token")
+	if !service.CheckToken(&token) {
+		c.Redirect(301, "/login")
+		return
+	}
+	c.HTML(200, "room.html", gin.H{})
+}
+
+// [#] 获取寝室信息
+// [*] post, /room
+// [✓] .
+func PostRoom(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	// 需要返回寝室名，寝室分数，寝室成员列表
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"info": service.RoomInfo(token),
+	})
+	// 获取当前用户id
+	// 获取当前用户是哪个寝室的
+	// 获取寝室信息
+}

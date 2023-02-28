@@ -178,10 +178,22 @@ func RoomList() []pojo.RoomList {
 
 // [#] 创建新的卫生检查记录并且修改数据库中的得分
 // [*] to controller
-// [✓] ..
+// [✓] ...
 func NewClean(roomId uint, desc string, point float64) {
 	dao.AddClean(roomId, desc, point)
 	oldScore := dao.QueryRoomScore(roomId)
 	newScore := oldScore + point
 	dao.UpdateRoomScore(roomId, newScore)
+}
+
+// [#] 获取寝室信息
+// [*] to controller
+// [✓] ..
+func RoomInfo(token string) pojo.RoomInfo{
+	// 获取当前用户id
+	id := tokenMap[token].Id
+	// 获取当前用户是哪个寝室的
+	roomId := dao.QueryRoomId(id)
+	// 获取寝室信息
+	return pojo.RoomInfo{Room_name: dao.QueryRoomName(id), Score: dao.QueryRoomScore(roomId), Name: dao.QueryRoomates(roomId)}
 }
