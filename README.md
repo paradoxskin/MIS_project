@@ -14,7 +14,7 @@
 
 > 使用 sqlite3
 
-- [ ] users（增，删，改，查
+- [x] users（增，删，改，查
 
 | 字段名   | 值           | 说明   |
 | -------- | ------------ | ------ |
@@ -24,7 +24,7 @@
 | password | varchar(255) | 密码   |
 | power    | int          | 权限   |
 
-- [ ] rooms（增，删，改，查
+- [x] rooms（增，删，改，查
 
 | 字段名    | 值           | 说明     |
 | --------- | ------------ | -------- |
@@ -32,7 +32,7 @@
 | room_name | varchar(255) | 寝室号   |
 | score     | double       | 寝室积分 |
 
-- [ ] cleans（增，改，查
+- [x] cleans（增，改，查
 
 | 字段名  | 值     | 说明         |
 | ------- | ------ | ------------ |
@@ -42,7 +42,7 @@
 | desc    | string | 具体什么原因 |
 | points  | double | 改多少分     |
 
-- [ ] breaks（增，改，查
+- [x] breaks（增，改，查
 
 | 字段名    | 值     | 说明         |
 | --------- | ------ | ------------ |
@@ -52,7 +52,7 @@
 | status    | int    | 维修状态     |
 | post_time | time   | 上报时间     |
 
-- [ ] visits（增，改，查
+- [x] visits（增，改，查
 
 | 字段名      | 值           | 说明                           |
 | ----------- | ------------ | ------------------------------ |
@@ -63,7 +63,7 @@
 | why         | string       | 到访理由                       |
 | when_leave  | time         | 离开时间                       |
 
-- [ ] losts（增，改，查
+- [x] losts（增，改，查
 
 | 字段名    | 值           | 说明       |
 | --------- | ------------ | ---------- |
@@ -74,7 +74,7 @@
 | picked    | boolean      | 是否被取走 |
 | picker_id | int          | 取走者id   |
 
-- [ ] stu_room（增，删，改，查
+- [x] stu_room（增，删，改，查
 
 | 字段名  | 值   | 说明     |
 | ------- | ---- | -------- |
@@ -127,7 +127,10 @@
 |  | GET | `/clean` |  | clean.html |
 | | POST | `/clean/add` | |  |
 |  | GET | `/break` |  | break.html |
+|  | GET | `/index` |  | index.html |
+| | POST | `/index` |  | 待定 |
 | | POST | `/break/add` | |  |
 | | POST | `/break/query` | |  |
 | | POST | `/break/modify` | |  |
+| | POST | `/quit` | with token info |  |
 

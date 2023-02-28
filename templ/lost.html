@@ -1,0 +1,60 @@
+<div class="container" id="lostion">
+</div>
+<script charset="utf-8">
+	var token = localStorage.getItem("token");
+	$.post(
+		"/lost",
+		{"token": token},
+		function(data) {
+			var sts = [
+				"btn-info\">待认领",
+				"btn-warning\">已被预约",
+				"btn-success\">已领走"
+			];
+			for(var i = 0; i < data.losts.length; i += 2) {
+				if(i + 1 < data.losts.length) {
+					$("#lostion").append("<div class=\"row py-2\"><div class=\"row bg-primary-subtle col-md-4 offset-md-1\"><div class=\"col-md-6\"><img class=\"img-thumbnail\" src=\""+data.losts[i].link+"\" alt=\"tupian\" style=\"max-height: 120px;\"/></div><div class=\"col-md-6\"><div class=\"col-md-12 py-2 text-success-emphasis\">"+data.losts[i].name+"</div><div class=\"col-md-12 py-2 text-secondary\">"+data.losts[i].date+"</div><div id=\""+data.losts[i].id+"\" class=\"col-md-12 py-2 btn "+sts[data.losts[i].status]+"</div></div></div><div class=\"row bg-primary-subtle col-md-4 offset-md-2\"><div class=\"col-md-6\"><img class=\"img-thumbnail\" src=\""+data.losts[i+1].link+"\" alt=\"tupian\" style=\"max-height: 120px;\"/></div><div class=\"col-md-6\"><div class=\"col-md-12 py-2 text-success-emphasis\">"+data.losts[i+1].name+"</div><div class=\"col-md-12 py-2 text-secondary\">"+data.losts[i+1].date+"</div><div id=\""+data.losts[i+1].id+"\" class=\"col-md-12 py-2 btn "+sts[data.losts[i+1].status]+"</div></div></div></div>");
+					$("#"+data.losts[i].id).click(function() {
+						var token = localStorage.getItem("token");
+						$.post(
+							"/lost/change",
+							{"token": token, "id": $(this).attr("id")},
+							function(data) {
+								if(data.msg == "ok") {
+									$("#lost").click()
+								}
+							}
+						)
+					});
+					$("#"+data.losts[i+1].id).click(function() {
+						var token = localStorage.getItem("token");
+						$.post(
+							"/lost/change",
+							{"token": token, "id": $(this).attr("id")},
+							function(data) {
+								if(data.msg == "ok") {
+									$("#lost").click()
+								}
+							}
+						)
+					});
+				}
+				else {
+					$("#lostion").append("<div class=\"row py-2\"><div class=\"row bg-primary-subtle col-md-4 offset-md-1\"><div class=\"col-md-6\"><img class=\"img-thumbnail\" src=\""+data.losts[i].link+"\" alt=\"tupian\" style=\"max-height: 120px;\"/></div><div class=\"col-md-6\"><div class=\"col-md-12 py-2 text-success-emphasis\">"+data.losts[i].name+"</div><div class=\"col-md-12 py-2 text-secondary\">"+data.losts[i].date+"</div><div id=\""+data.losts[i].id+"\" class=\"col-md-12 py-2 btn "+sts[data.losts[i].status]+"</div></div></div></div></div>");
+					$("#"+data.losts[i].id).click(function() {
+						var token = localStorage.getItem("token");
+						$.post(
+							"/lost/change",
+							{"token": token, "id": $(this).attr("id")},
+							function(data) {
+								if(data.msg == "ok") {
+									$("#lost").click()
+								}
+							}
+						)
+					});
+				}
+			}
+		}
+	);
+</script>

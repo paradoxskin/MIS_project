@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>宿舍管理系统</title>
+	</head>
+	<body>
+	<div class="navbar bg-primary text-white">
+		<h3 class="mx-2">宿舍管理系统</h3>
+		<button class="btn btn-danger float-right mx-2" type="button" id="quit">退出</button>
+	</div>
+	<div class="container-fluid">
+		<div class="row flex-xl-nowrap" style="min-height: 650px;">
+			<div class="col-12 col-md-2 bd-sidebar bg-secondary text-white text-center">
+				<ul class="nav flex-column" id="menu">
+				</ul>
+			</div>
+			<div class="col-12 col-md-10 bd-content bg-light text-dark text-center" id="content">
+				内容
+			</div>
+		</div>
+	</div>
+	<div class="bg-white">x</div>
+	</body>
+</html>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/jquery-3.6.3.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script charset="utf-8">
+	$(function() {
+		$("#quit").click(function() {
+			var token = localStorage.getItem("token");
+			localStorage.removeItem("token");
+			var tks={"token":token}
+			$.post(
+				"/quit",
+				tks,
+				function() {
+					location.assign("/login");
+				}
+			);
+		});
+		var token = localStorage.getItem("token");
+		$.post(
+			"/index",
+			{"token": token},
+			function(data) {
+				var indexs = data
+				for(var i = 0; i < data.infos.length; i++) {
+					$("#menu").append("<li class=\"nav-item\"><button class=\"my-2 btn btn-secondary btn-block w-100\" type=\"button\" id=\"" + data.infos[i].button_id + "\">" + data.infos[i].button_name + "</button></li>");
+					(function(i) {
+					$("#" + data.infos[i].button_id).click(function() {
+						$.get(
+							indexs.infos[i].obj_url + "?token=" + token,
+							function(data) {
+								$("#content").html(data)
+							}
+						)
+					});})(i)
+				}
+			}
+		);
+	});
+</script>

@@ -1,0 +1,30 @@
+<table class="table py-2">
+	<thead><tr>
+	<th scope="col">#</th>
+	<th scope="col">寝室</th>
+	<th scope="col">分数</th>
+	<th scope="col">原因</th>
+	</tr></thead>
+	<tbody id="body">
+	</tbody>
+</table>
+<script charset="utf-8">
+	var token = localStorage.getItem("token");
+	$.post(
+		"/clean",
+		{"token": token},
+		function(data) {
+			console.log(data);
+			var col = ["success\">+", "danger\">"]
+			if(data.msg == "ok") {
+				for(var i = 0; i < data.cleans.length; i++) {
+					var stat = 0;
+					if(data.cleans[i].points < 0) {
+						stat = 1;
+					}
+					$("#body").append("<tr> <td scope=\"row\">"+(i+1)+"</td> <td>"+data.cleans[i].room_name+"</td> <td class=\"text-"+col[stat]+data.cleans[i].points+"</td> <td>"+data.cleans[i].desc+"</td> </tr>")
+				}
+			}
+		}
+	);
+</script>

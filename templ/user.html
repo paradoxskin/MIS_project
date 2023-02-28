@@ -1,0 +1,68 @@
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<img src="/pic/send.svg" alt="Bootstrap" width="16" height="16">
+	<h5>添加用户</h5>
+	<form class="input-group my-3" id="newLost">
+		<input type="text" id="username" placeholder="用户名" class="form-control" />
+		<input type="text" id="name" placeholder="姓名" class="form-control" />
+		<select class="form-select" id="select">
+			<option selected>寝室</option>
+		</select>
+		<div class="btn btn-outline-secondary" id="upload">添加</div>
+	</form>
+</div>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<img src="/pic/user.svg" alt="Bootstrap" width="16" height="16">
+	<h3 class="border-bottom">用户列表</h3>
+	<table class="table">
+		<thead><tr>
+		<th scope="col">#</th>
+		<th scope="col">用户名</th>
+		<th scope="col">姓名</th>
+		<th scope="col">寝室</th>
+		</tr></thead>
+		<tbody id="body">
+		</tbody>
+	</table>
+</div>
+<script charset="utf-8">
+	var token = localStorage.getItem("token");
+	$.post(
+		"/user",
+		{"token": token},
+		function(data) {
+			console.log(data)
+			for(var i = 0;i < data.info.length; i++) {
+				$("#body").append("<tr> <td>"+(i+1)+"</td> <td>"+data.info[i].username+"</td> <td>"+data.info[i].name+"</td> <td>"+data.info[i].room_name+"</td> </tr>")
+			}
+		}
+	)
+	$.post(
+		"/room/list",
+		{"token": token},
+		function(data) {
+			for(var i = 0; i < data.rooms.length; i++) {
+				$("#select").append("<option value=\""+data.rooms[i].room_id+"\">"+data.rooms[i].room_name+"</option>")
+			}
+		}
+	);
+	$("#upload").click(function() {
+		var token = localStorage.getItem("token");
+		var formData = new FormData();
+		formData.append("token", token);
+		formData.append("username", document.getElementById("username").value);
+		formData.append("name", document.getElementById("name").value);
+		formData.append("roomid", document.getElementById("select").value);
+		$.ajax({
+			url: "/user/new",
+			data: formData,
+			processData: false,
+			contentType: false,
+			type: "POST",
+			success: function(data) {
+				console.log(data);
+			}
+		});
+		console.log(formData)
+		setTimeout($("#user").click(), 2000);
+	});
+</script>
