@@ -76,3 +76,12 @@ type RoomInfo struct {
 	Score float64 `json:"score"`
 	Name []string `json:"roomates"`
 }
+
+// [#] 寝室信息，不返回成员姓名
+// [*] send json
+// [✓] ...
+type RoomInfo2 struct {
+	ID uint `json:"id"`
+	Room_name string `json:"room_name"`
+	Score float64 `json:"score"`
+}

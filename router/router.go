@@ -55,6 +55,7 @@ func Build() *gin.Engine {
 		room.GET("", controller.GetRoom)
 		room.POST("", controller.PostRoom)
 		room.POST("/new", controller.NewRoom)
+		room.POST("/mates", controller.Roomates)
 	}
 	quit := r.Group("/quit")
 	{

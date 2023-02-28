@@ -546,6 +546,13 @@ func PostRoom(c *gin.Context) {
 		})
 		return
 	}
+	if service.CheckRoot(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "ok",
+			"info": service.RoomInfos(),
+		})
+		return
+	}
 	// 需要返回寝室名，寝室分数，寝室成员列表
 	c.JSON(200, map[string]interface{}{
 		"msg": "ok",
@@ -570,6 +577,12 @@ func NewRoom(c *gin.Context) {
 		})
 		return
 	}
+	if !service.CheckRoot(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
 	name, isOk := c.GetPostForm("name")
 	if !isOk {
 		c.JSON(200, map[string]interface{}{
@@ -579,4 +592,41 @@ func NewRoom(c *gin.Context) {
 	}
 	service.NewRoom(name)
 	c.JSON(200, map[string]interface{}{"msg":"ok"})
+}
+
+// [#] 获取指定寝室的成员信息
+// [*] post, /room/mates
+// [✓] ...
+func Roomates(c *gin.Context) {
+	token, isOk := c.GetPostForm("token")
+	if !isOk {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckToken(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	if !service.CheckRoot(&token) {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+		return
+	}
+	idS, isOk := c.GetPostForm("id")
+	idI, err := strconv.Atoi(idS)
+	if err != nil {
+		c.JSON(200, map[string]interface{}{
+			"msg": "fail",
+		})
+	}
+	id := uint(idI)
+	c.JSON(200, map[string]interface{}{
+		"msg": "ok",
+		"info": service.Roomates(id),
+	})
 }

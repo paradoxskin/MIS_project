@@ -204,3 +204,17 @@ func RoomInfo(token string) pojo.RoomInfo{
 func NewRoom(name string) {
 	dao.NewRoom(name)
 }
+
+// [#] 获取全部寝室信息
+// [*] to controller
+// [✓] ...
+func RoomInfos() []pojo.RoomInfo2{
+	return dao.QueryRoomInfos()
+}
+
+// [#] 获取指定寝室的成员信息
+// [*] to controller
+// [✓] ...
+func Roomates(roomId uint) []string{
+	return dao.QueryRoomates(roomId)
+}

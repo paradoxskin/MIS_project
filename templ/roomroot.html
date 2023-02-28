@@ -17,16 +17,35 @@
 		<th scope="col">操作</th>
 		</tr></thead>
 		<tbody id="body">
-			<tr>
-				<td scope="row">1</td>
-				<td>311</td>
-				<td>100</td>
-				<td><div class="btn btn-success">查看成员</div></td>
-			</tr>
 		</tbody>
 	</table>
 </div>
 <script charset="utf-8">
+	var token = localStorage.getItem("token");
+	$.post(
+		"/room",
+		{"token": token},
+		function(data) {
+			console.log(data)
+			for(var i = 0; i < data.info.length; i++) {
+				$("#body").append("<tr> <td scope=\"row\">"+(i+1)+"</td> <td>"+data.info[i].room_name+"</td> <td>"+data.info[i].score+"</td> <td><div class=\"btn btn-success\" id=\""+data.info[i].id+"\">查看成员</div></td> </tr>")
+				$("#"+data.info[i].id).click(function() {
+					var token = localStorage.getItem("token");
+					$.post(
+						"/room/mates",
+						{"token": token, "id": $(this).attr("id")},
+						function(data) {
+							var names = "寝室成员: ";
+							for(var i = 0; i < data.info.length; i++) {
+								names += " " + data.info[i];
+							}
+							alert(names)
+						}
+					);
+				})
+			}
+		}
+	);
 	$("#upload").click(function() {
 		var token = localStorage.getItem("token");
 		var formData = new FormData();
@@ -42,6 +61,6 @@
 				console.log(data);
 			}
 		});
-		setTimeout($("#break").click(), 2000);
+		setTimeout($("#room").click(), 2000);
 	});
 </script>

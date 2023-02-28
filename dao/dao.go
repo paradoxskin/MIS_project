@@ -210,3 +210,12 @@ func QueryRoomates(roomId uint) []string{
 func NewRoom(name string) {
 	DB.Table("rooms").Create(&pojo.Room{Room_name: name, Score: 5})
 }
+
+// [#] 获取所有寝室的信息
+// [*] to service
+// [✓] ...
+func QueryRoomInfos() []pojo.RoomInfo2{
+	var tmp []pojo.RoomInfo2
+	DB.Raw("select id,room_name,score from rooms").Scan(&tmp)
+	return tmp
+}
